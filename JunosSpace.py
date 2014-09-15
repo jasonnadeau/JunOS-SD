@@ -6,6 +6,10 @@ class JunosSpace(object):
     def __init__(self, hostname):
 
 
+            """
+
+            :type self: object
+            """
             self.__setHostname(hostname)
             print(self.URL)
 
@@ -25,8 +29,7 @@ class JunosSpace(object):
     
 class JunosSD(JunosSpace):
     URI = JunosSpace.URI + '/juniper/sd'
-    def __init__(self,hostname):
-        super(JunosSD, self).__init__(hostname)
+
 
 
 

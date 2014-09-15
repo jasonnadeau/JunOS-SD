@@ -9,6 +9,8 @@ class JunosUser(object):
         return self.__username
     def getPassword(self):
         return self.__password
+    def updatePasword(self,newPassword):
+        self.__password = newPassword
 
     def __setUsername(self,username):
         self.__username=username

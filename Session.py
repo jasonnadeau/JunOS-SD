@@ -13,8 +13,10 @@ class JunosSession(object):
     def buildRequest(self,uri=None):
         import urllib2
         if uri==None:
-            uri=self.Server.URL
-        request = urllib2.Request(uri)
+            requestUri=self.Server.URL
+        else:
+            requestUri=self.Server.hostname+uri
+        request = urllib2.Request(requestUri)
         request.add_header('Authorization',self.buildAuthentication())
         return request
 

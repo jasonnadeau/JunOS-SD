@@ -7,9 +7,12 @@ class Request(object):
 
 
 class IPAddressRequest(Request):
-    TYPE="IPADDRESS"
+
 
 class IPv4AddressRequest(IPAddressRequest):
     VERSION="IPV4"
     def addAddressObject(self,name,ipAddress,description=None):
-        
+
+class IPv6AddressRequest(IPAddressRequest):
+    pass
+

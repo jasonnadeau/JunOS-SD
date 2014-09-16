@@ -15,7 +15,11 @@ class JunosSession(object):
         if uri==None:
             requestUri=self.Server.URL
         else:
-            requestUri=self.Server.hostname+uri
+
+
+            requestUri='https://'+self.Server.hostname+uri
+
+
         request = urllib2.Request(requestUri)
         request.add_header('Authorization',self.buildAuthentication())
         return request

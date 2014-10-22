@@ -6,7 +6,7 @@ class JunOSObject(object):
         self.xmlBody = ET.fromstring(self.xmltemplate)
 
 class AddressBookObject(JunOSObject):
-    import xml.etree.ElementTree as ET
+
     xmltemplate ='''
     <address>
     <name></name>
@@ -37,12 +37,20 @@ class IPAddress(AddressBookObject):
                        'address-version':self.ADDRESS_VERSION}
         self.installValues(IpAddressDict)
     def render(self):
+        """
+
+
+        :return: text XML that represents IP Address object
+        """
         import xml.etree.ElementTree as ET
         return ET.tostring(self.xmlBody)
 
     def installValues(self,aDict):
-        '''I expect a dictionary of keys that match XML node names,
-        For each node name match I will install the value as the node text'''
+        '''
+        :param aDict: a Dictionary with keys that match xml node names, the value will be mapped to the text for the node.
+
+
+        '''
         for each in aDict.keys():
             if each =='other':
                 self.installValues(aDict.get('other'))
@@ -59,8 +67,15 @@ class IPAddress(AddressBookObject):
 class IPv4Address(IPAddress):
     ADDRESS_VERSION="IPV4"
     def __init__(self,name,ipaddress,description,**kwargs):
+        """
+
+        :param name: The name of the object to be created. This should be a string.
+        :param ipaddress: The IPv4 Address value of the object
+        :param description: Text description
+        :param kwargs: Other kv that may be passed to API channel. TBD.
+        """
         super(IPv4Address, self).__init__()
-        #kwargs['address-version']=self.ADDRESS_VERSION
+
         initVarDict = {'name':name,
                        'ip-address':ipaddress,
                        'description':description,
@@ -76,6 +91,13 @@ class IPv4Address(IPAddress):
 class IPv6Address(IPAddress):
     ADDRESS_VERSION="IPV6"
     def __init__(self,name,ipaddress,description,**kwargs):
+        """
+
+        :param name: The name of the object to be created. This should be a string
+        :param ipaddress: The IPv6 Address value of the object. JunOS seems to handle IPv6 address shorthand
+        :param description: Text description
+        :param kwargs: Other kv that may be passed to the API channel. TBD.
+        """
         super(IPv6Address, self).__init__()
 
         initVarDict = {'name':name,
@@ -84,6 +106,3 @@ class IPv6Address(IPAddress):
                        'other':kwargs}
         self.installValues(initVarDict)
 
-
-
-s=IPv4Address('test-item','10.2.2.2','test-description')
